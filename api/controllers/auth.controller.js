@@ -1,7 +1,8 @@
+import { errorHandler } from '../utils/error.js';
 import User from './../models/user.model.js';
 import bcrypt from 'bcrypt'
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
     // console.log(req.body);
     const { username, email, password } = req.body;
 
@@ -13,6 +14,7 @@ export const signup = async (req, res) => {
 
         res.status(201).json('user Create Successfully....!')
     } catch (error) {
-        res.status(501).json(error.message)
+        // next(error);
+        next(errorHandler(550,'data already Exits.....'));
     }
 }
