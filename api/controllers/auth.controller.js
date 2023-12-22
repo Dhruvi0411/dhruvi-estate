@@ -15,6 +15,6 @@ export const signup = async (req, res, next) => {
         res.status(201).json('user Create Successfully....!')
     } catch (error) {
         // next(error);
-        next(errorHandler(550,'data already Exits.....'));
+        next(errorHandler(550,'Data already Exits.....!'));
     }
 }
