@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice'
+import Gauth from '../components/Gauth'
 
 export default function SignUp() {
   const [formData, setFormData] = useState({})
@@ -59,6 +60,7 @@ export default function SignUp() {
         <input type="password" placeholder="Password" className="border p-3 rounded-lg" id="password" onChange={changeHandler}></input>
 
         <button disabled={loading} className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95">{loading ? 'Loading...' : 'Sign Up'}</button>
+        <Gauth></Gauth>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>

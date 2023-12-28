@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    avatar:{
+        type: String,
+        default:"https://e7.pngegg.com/pngimages/803/368/png-clipart-computer-icons-user-profile-avatar-heroes-silhouette-thumbnail.png"
     }
 }, { timestamps: true });
 
