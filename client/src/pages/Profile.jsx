@@ -5,8 +5,8 @@ import { app } from '../firebase';
 
 export default function Profile() {
   const fileRef = useRef(null);
-  const { currentUser } = useSelector(state => state.user)
-  const [file, setFile] = useState(undefined)
+  const { currentUser } = useSelector(state => state.user);
+  const [file, setFile] = useState(undefined);
   // console.log(file);
   const [filePerc, setFileperc] = useState(0)
   // console.log(filePerc);
