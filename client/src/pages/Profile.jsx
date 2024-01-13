@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useState, useEffect } from 'react'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase';
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess } from '../redux/user/userSlice';
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signoutUserStart, signoutUserSuccess, signoutUserFailure } from '../redux/user/userSlice';
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -99,17 +99,33 @@ export default function Profile() {
   const userDeleteHandler = async () => {
     try {
       dispatch(deleteUserStart())
-      const res = await fetch(`api/user/delete/${currentUser._id}`,{
-        method:'DELETE',
+      const res = await fetch(`api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
       })
       const data = await res.json();
-      if(data.success === false){
+      if (data.success === false) {
         dispatch(deleteUserFailure(data.message))
         return;
       }
       dispatch(deleteUserSuccess(data))
     } catch (error) {
       dispatch(deleteUserFailure(error.message))
+    }
+  }
+
+  // SignOut User
+  const userSignoutHandler = async () => {
+    try {
+      dispatch(signoutUserStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signoutUserFailure(data.message))
+        return;
+      }
+      dispatch(signoutUserSuccess(data))
+    } catch (error) {
+      dispatch(signoutUserFailure(error.message))
     }
   }
   return (
@@ -144,7 +160,7 @@ export default function Profile() {
 
       <div className='flex justify-between mt-5'>
         <span className='text-red-700 cursor-pointer' onClick={userDeleteHandler}>Delete Account</span>
-        <span className='text-red-700 cursor-pointer'>Sign Out</span>
+        <span className='text-red-700 cursor-pointer' onClick={userSignoutHandler}>Sign Out</span>
       </div>
 
       <p className='text-red-700 mt-5 text-center font-semibold'>{error ? error : ""}</p>
