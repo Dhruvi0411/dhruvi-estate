@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from 'react'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase';
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signoutUserStart, signoutUserSuccess, signoutUserFailure } from '../redux/user/userSlice';
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -131,7 +132,7 @@ export default function Profile() {
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
-      <form onSubmit={formSubmitHandler} className='flex flex-col gap-4'>
+      <form onSubmit={formSubmitHandler} className='flex flex-col gap-3'>
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type='file'
@@ -156,6 +157,7 @@ export default function Profile() {
         <input type='password' id='password' onChange={changeHandler} placeholder='Password' className='border p-3 rounded-lg'></input>
 
         <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>{loading ? "Loading...." : "Update"}</button>
+        <Link to={"/create-listing"} className='bg-green-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 text-center'>Create Listing</Link>
       </form>
 
       <div className='flex justify-between mt-5'>
